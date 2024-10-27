@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch \"*.ts\" --exec 'npx' 'node' server.ts",
-    "start" : "node server.ts"
+    "dev": "nodemon --watch \"*.js\" --exec 'npx' 'node' server.js",
+    "start" : "node server.js"
   },
   "keywords": [],
   "author": "Indigochi1d",
