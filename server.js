@@ -47,6 +47,21 @@ io.on("connection", (socket) => {
         }
     });
 
+    socket.on("newText",(text)=>{
+        const sender = players.find(player => player.id === socket.id);
+        if(sender){
+            const {id,nickname,jobPosition} = sender;
+            if(nickname&& jobPosition){
+                io.emit("newText",{
+                    senderId : id,
+                    senderNickname: nickname,
+                    senderJobPosition : jobPosition,
+                    text: text,
+                    timestamp: new Date(),
+                })
+            }
+        }
+    })
 
     socket.on("disconnecting", () => {
         console.log("연결이 끊어지는 중");
