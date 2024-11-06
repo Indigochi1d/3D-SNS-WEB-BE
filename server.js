@@ -38,6 +38,16 @@ io.on("connection", (socket) => {
         io.emit("players", players);
     });
 
+    socket.on("move", (position) => {
+        console.log("players", players);
+        const player = players.find(player => player.id === socket.id);
+        if (player) {
+            player.position = position;
+            io.emit("players", players);
+        }
+    });
+
+
     socket.on("disconnecting", () => {
         console.log("연결이 끊어지는 중");
     });
