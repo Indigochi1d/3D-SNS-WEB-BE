@@ -63,11 +63,29 @@ io.on("connection", (socket) => {
         }
     })
 
+    socket.on("myRoomChange",(myRoom,otherPlayerId)=>{
+        console.log("방이 바뀌었나요?");
+        const id = otherPlayerId || socket.id; //방에 자신이 변화를 주었는지 or 남이 변화를 주었는지
+        const player = players.find(player => player.id === id);
+        player.myRoom = myRoom;
+        io.emit("players", players);
+    })
+
     socket.on("disconnecting", () => {
         console.log("연결이 끊어지는 중");
+        const player = players.find(player => player.id === socket.id);
+        if(player){
+            io.emit("exit",{
+                id: socket.id,
+                nickname: player.nickname,
+                jobPosition: player.jobPosition,
+            })
+        }
     });
 
     socket.on("disconnect", (message) => {
         console.log("연결이 끊어짐");
+        players.splice(players.findIndex(player => player.id === socket.id),1);
+        io.emit("players",players);
     });
 });
