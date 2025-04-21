@@ -5,7 +5,7 @@ const io = new Server({
   },
 });
 
-io.listen(4000);
+io.listen(4000, "0.0.0.0");
 
 /* 입장해 있는 유저들 : 클라이언트의 Socket ID, 캐릭터의 위치좌표, 닉네임, 직군정보, 캐릭터 모델 인덱스, myRoom 배치정보, 메모 정보 */
 const players = [];
