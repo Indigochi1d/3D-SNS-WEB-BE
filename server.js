@@ -58,6 +58,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("newText", (text) => {
+    if (!text || typeof text !== "string" || text.length > 200) {
+      socket.emit("error", {
+        message: "잘못된 메시지입니다. 메시지는 200자를 초과할 수 없습니다.",
+      });
+      return;
+    }
+
     const sender = players.find((player) => player.id === socket.id);
     if (sender) {
       const { id, nickname, jobPosition } = sender;
